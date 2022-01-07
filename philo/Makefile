@@ -6,19 +6,19 @@
 #    By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/22 21:33:41 by mannouao          #+#    #+#              #
-#    Updated: 2022/01/04 11:25:12 by mannouao         ###   ########.fr        #
+#    Updated: 2022/01/07 16:31:56 by mannouao         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 SRCS = philo.c\
 		check.c\
-		leaf.c\
+		life.c\
 		tools.c
 
 OBJS = $(SRCS:.c=.o)
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -pthread
 
 all : $(NAME)
 

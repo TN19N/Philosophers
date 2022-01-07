@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 09:07:10 by mannouao          #+#    #+#             */
-/*   Updated: 2022/01/04 13:13:08 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/01/07 17:14:30 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,10 +90,16 @@ int	main(int ac, char **av)
 		return (ft_error("Error! : invalid number of arguments (4 or 5)\n"));
 	if (check(ac, av))
 		return (ft_error("Error! : invalid arg (just >= 0 && =< MAX_INT)\n"));
-	if (fill(&table, ac, av))
-		return (ft_error("Error! : max limit 200 (>= 60)\n"));
+	if (fill_check(&table, ac, av))
+		return (ft_error("Error! : allocation faild\n"));
 	if (start(&table))
+	{
+		free_all(&table);
 		return (ft_error("Error! : some pthread function faild\n"));
+	}
 	else
+	{
+		free_all(&table);
 		return (0);
+	}
 }

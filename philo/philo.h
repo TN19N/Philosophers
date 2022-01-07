@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 21:05:01 by mannouao          #+#    #+#             */
-/*   Updated: 2022/01/04 15:37:28 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/01/05 13:34:03 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ typedef struct s_philo
 
 typedef struct s_data
 {
-	t_philo			philos[200];
-	pthread_t		threads[200];
-	pthread_mutex_t	mtx_forks[200];
+	t_philo			*philos;
+	pthread_t		*threads;
+	pthread_mutex_t	*mtx_forks;
 	pthread_mutex_t	mtx_output;
 	unsigned long	start_time;
 	int				num_philo;
@@ -53,12 +53,14 @@ int				ft_error(char *str);
 int				ft_atoi(const char *str);
 void			free_all(t_data *table);
 int				free_all_error(t_data *table);
-int				check(int ac, char **av);
-int				fill(t_data *table, int ac, char **av);
+int				fill_check(t_data *table, int ac, char **av);
 void			*life(void *tmp);
 unsigned long	get_time(void);
 unsigned long	get_time_pass(unsigned long start_time);
 unsigned long	get_time_last_eat(t_data *table, int i);
 void			print_to_screen(t_data *table, int id, char *str);
+int				allocation(t_data *table);
+void			free_all(t_data *table);
+int				check(int ac, char **av);
 
 #endif

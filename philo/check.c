@@ -1,16 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tools.c                                            :+:      :+:    :+:   */
+/*   check.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 21:48:46 by mannouao          #+#    #+#             */
-/*   Updated: 2022/01/04 09:00:05 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/01/05 13:33:41 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+void	free_all(t_data *table)
+{
+	free(table->threads);
+	free(table->mtx_forks);
+	free(table->philos);
+}
 
 int	check(int ac, char **av)
 {
@@ -28,18 +35,28 @@ int	check(int ac, char **av)
 	return (0);
 }
 
-int	check_limits(t_data *table)
+int	allocation(t_data *table)
 {
-	if (table->num_philo <= 0 || table->num_philo > 200)
+	table->philos = malloc(sizeof(t_philo) * table->num_philo);
+	if (!table->philos)
 		return (1);
-	if (table->tm_die < 60 || table->tm_eat < 60000)
+	table->mtx_forks = malloc(sizeof(pthread_mutex_t) * table->num_philo);
+	if (!table->mtx_forks)
+	{
+		free(table->philos);
 		return (1);
-	if (table->tm_sleep < 60000)
+	}
+	table->threads = malloc(sizeof(pthread_t) * table->num_philo);
+	if (!table->mtx_forks)
+	{
+		free(table->mtx_forks);
+		free(table->philos);
 		return (1);
+	}
 	return (0);
 }
 
-int	fill(t_data *table, int ac, char **av)
+int	fill_check(t_data *table, int ac, char **av)
 {
 	int	i;
 
@@ -53,7 +70,7 @@ int	fill(t_data *table, int ac, char **av)
 		table->count_eat = ft_atoi(av[5]);
 	else
 		table->count_eat = -1;
-	if (check_limits(table))
+	if (allocation(table))
 		return (1);
 	while (++i < table->num_philo)
 	{
