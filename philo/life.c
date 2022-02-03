@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 15:43:38 by mannouao          #+#    #+#             */
-/*   Updated: 2022/01/07 17:21:07 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/03 20:42:41 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,9 @@ void	*life(void *tmp)
 		pthread_mutex_lock(&philo->table->mtx_forks[philo->left_fork]);
 		print_to_screen(philo->table, philo->id, "has taken a fork");
 		eat(philo);
+		print_to_screen(philo->table, philo->id, "is sleeping");
 		if (philo->num_eat == philo->table->count_eat)
 			break ;
-		print_to_screen(philo->table, philo->id, "is sleeping");
 		smart_sleep(philo->table->tm_sleep, philo);
 		print_to_screen(philo->table, philo->id, "is thinking");
 	}
