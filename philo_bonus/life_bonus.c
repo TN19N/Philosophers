@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   life.c                                             :+:      :+:    :+:   */
+/*   life_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 16:45:52 by mannouao          #+#    #+#             */
-/*   Updated: 2022/01/07 16:46:30 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/04/16 20:13:59 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ void	*managing(void *void_table)
 		if (get_time_last_eat(table) >= table->tm_die \
 			&& !table->eating)
 		{
-			sem_post(table->sem_output);
-			print_to_screen(table, "died");
+			sem_wait(table->sem_output);
+			printf("%lu %d died\n", get_time_pass(table->start_time), table->id);
 			exit(1);
 		}
 	}
